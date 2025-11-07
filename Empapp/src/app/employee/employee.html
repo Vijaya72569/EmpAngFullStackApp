@@ -1,0 +1,28 @@
+<p>employee works!</p>
+
+<form>
+   
+    <input [(ngModel)]="emp.ename" name="ename" placeholder="Name"><br>
+    <input [(ngModel)]="emp.esal" name="esal" placeholder="Salary"><br>
+   <button type="button" (click)="SaveEmployee()">Save</button>
+ <button type="button" (click)="UpdateEmployee()">Update</button>
+
+</form>
+
+<table>
+    <tr>
+       <th>ID</th>
+        <th>Name</th>
+         <th>Salary</th>
+    </tr>
+    <tr *ngFor="let em of employees">
+        <td>{{em.eid}}</td>
+         <td>{{em.ename}}</td>
+         <td>{{em.esal}}</td>
+         <td>
+              <button (click)="editEmployee(em)">Edit</button>
+
+             <button (click)="deleteEmployee(em.eid!)">Delete</button>
+         </td>
+    </tr>
+</table>
