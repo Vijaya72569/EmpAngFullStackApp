@@ -36,4 +36,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/", () => "✅ Employee Web API is running successfully on Azure!");
+
 app.Run();
