@@ -15,7 +15,7 @@ export interface Employees {
 })
 export class Empservice {
  // private api="https://localhost:44343/api/Employee";
-private api=`${API_URL}/Employee`;
+private api=`${API_URL}/api/Employee`;
 
   constructor(private http:HttpClient){
 
