@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - employeeapp-angular20
+name: Build and deploy Angular app to Azure Web App - employeeapp-angular20
 
 on:
   push:
@@ -13,42 +10,42 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js version
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-      - name: Install and Build Angular App
+
+      - name: Install dependencies and build Angular app
         working-directory: Empapp
         run: |
           npm ci
-          npx ng build Empapp --configuration production
-      - name: Upload build artifact
+          npx ng build --configuration production
+
+      - name: Upload Angular dist folder
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
           path: Empapp/dist/Empapp
 
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download build artifact
+      - name: Download Angular build artifact
         uses: actions/download-artifact@v4
         with:
-         name: angular-dist
-            path:.
+          name: angular-dist
+          path: .
 
-      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -56,21 +53,9 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4320F421D2914FEAB4A80FD8D5CAD489 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3637E009C63C44EAA068173F58BCA1F2 }}
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'employeeapp-angular20'
           slot-name: 'Production'
-          package: ./Empapp
-
-
-          
-
-
-
-
-
-
-
-
+          package: .
