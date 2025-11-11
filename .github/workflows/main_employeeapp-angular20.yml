@@ -26,7 +26,7 @@ jobs:
         working-directory: Empapp
         run: |
           npm ci
-          npm run build --configuration production
+          npx ng build Empapp --configuration production
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -64,3 +64,4 @@ jobs:
           package: .
 
           
+
