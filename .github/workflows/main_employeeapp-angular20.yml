@@ -45,7 +45,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: angular-dist
+          name: dist
 
       
       - name: Login to Azure
@@ -61,10 +61,11 @@ jobs:
         with:
           app-name: 'employeeapp-angular20'
           slot-name: 'Production'
-          package: .
+          package: dist
 
 
           
+
 
 
 
