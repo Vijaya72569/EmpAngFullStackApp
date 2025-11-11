@@ -1,4 +1,5 @@
 {
   "app_location": "/",
-  "output_location": "dist/Empapp"
+  "output_location": "dist/Empapp",
+   "node_version": "20.19.0"
 }
