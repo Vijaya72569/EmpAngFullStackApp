@@ -61,9 +61,10 @@ jobs:
         with:
           app-name: 'employeeapp-angular20'
           slot-name: 'Production'
-          package: angular-dist
+          package: .
 
 
           
+
 
 
