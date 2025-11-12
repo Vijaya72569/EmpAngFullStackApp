@@ -1,4 +1,4 @@
-name: Build and deploy Angular 20 app to Azure Web App - employeeapp-angular20
+name: Build and deploy Angular app to Azure Web App - employeeapp-angular20
 
 on:
   push:
@@ -13,26 +13,27 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-          cache: 'npm'
 
       - name: Install dependencies and build Angular app
         working-directory: Empapp
         run: |
+          echo "Installing dependencies..."
           npm ci
+          echo "Building Angular production build..."
           npx ng build --configuration production
+          echo "✅ Build completed. Output path: Empapp/dist/Empapp"
 
       - name: Upload Angular dist folder
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
-          path: Empapp/dist
+          path: Empapp/dist/Empapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: angular-dist
-          path: ./dist
+          path: .
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -60,4 +61,4 @@ jobs:
         with:
           app-name: 'employeeapp-angular20'
           slot-name: 'Production'
-          package: ./dist/Empapp
+          package: .
